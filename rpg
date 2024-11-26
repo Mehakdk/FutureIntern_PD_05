@@ -1,0 +1,44 @@
+import random
+import string
+
+def generate_password(length, use_uppercase, use_lowercase, use_numbers, use_special_chars):
+    """Generate a random password based on user preferences."""
+    if length < 1:
+        return "Password length must be at least 1."
+    
+    # Create a pool of characters based on user preferences
+    character_pool = ""
+    if use_uppercase:
+        character_pool += string.ascii_uppercase
+    if use_lowercase:
+        character_pool += string.ascii_lowercase
+    if use_numbers:
+        character_pool += string.digits
+    if use_special_chars:
+        character_pool += string.punctuation
+
+    if not character_pool:
+        return "You must select at least one character type."
+
+    # Generate the password
+    password = "".join(random.choice(character_pool) for _ in range(length))
+    return password
+
+def main():
+    """Main function to get user input and generate a password."""
+    print("Welcome to the Random Password Generator!")
+    
+    try:
+        length = int(input("Enter the desired password length: "))
+        use_uppercase = input("Include uppercase letters? (yes/no): ").strip().lower() == "yes"
+        use_lowercase = input("Include lowercase letters? (yes/no): ").strip().lower() == "yes"
+        use_numbers = input("Include numbers? (yes/no): ").strip().lower() == "yes"
+        use_special_chars = input("Include special characters? (yes/no): ").strip().lower() == "yes"
+
+        password = generate_password(length, use_uppercase, use_lowercase, use_numbers, use_special_chars)
+        print(f"Your generated password is: {password}")
+    except ValueError:
+        print("Invalid input. Please enter a valid number for the password length.")
+
+if __name__ == "__main__":
+    main()
